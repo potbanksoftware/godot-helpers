@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpywutoqduxft"]
 
 [ext_resource type="Script" path="res://addons/godot-helpers/controls/checkbox_button/checkbox_button.gd" id="1_dwwed"]
-[ext_resource type="Texture2D" uid="uid://bn6o52a5vbqej" path="res://godot-menus/kenney_ui_pack/check_square_grey_checkmark_filled.png" id="2_ipt3x"]
-[ext_resource type="Texture2D" uid="uid://c8wbr6arvu0wm" path="res://godot-menus/kenney_ui_pack/check_square_grey.png" id="3_ep54y"]
+[ext_resource type="Texture2D" uid="uid://brlybj2bl2irk" path="res://addons/godot-helpers/controls/checkbox_button/check_square_grey_checkmark_filled.png" id="2_ipt3x"]
+[ext_resource type="Texture2D" uid="uid://cx0kaytun7cnu" path="res://addons/godot-helpers/controls/checkbox_button/check_square_grey.png" id="3_ep54y"]
 
 [node name="CheckBoxButton" type="Panel"]
 custom_minimum_size = Vector2(400, 50)

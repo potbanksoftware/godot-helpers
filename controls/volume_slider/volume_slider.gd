@@ -27,12 +27,12 @@ var bus_index: int
 
 var value: float:
 	get:
-		return slider.value
+		return %HSlider.value
 	set(volume):
-		slider.value = volume
+		%HSlider.value = volume
 
 
-@onready var slider: HSlider = $MarginContainer/VBoxContainer/HSlider
+
 
 
 func _ready() -> void:
@@ -42,10 +42,10 @@ func _update_label_and_slider():
 	$MarginContainer/VBoxContainer/Label.text = "%s Volume" % [bus_name]
 	if not Engine.is_editor_hint():
 		bus_index = AudioServer.get_bus_index(bus_name)
-		slider.value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
+		%HSlider.value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
 
 func _on_h_slider_value_changed(_value: float) -> void:
-	AudioServer.set_bus_volume_db(bus_index, linear_to_db(slider.value))
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(%HSlider.value))
 	value_changed.emit()
 
 
@@ -58,8 +58,8 @@ func _on_h_slider_focus_exited() -> void:
 
 
 func _on_focus_entered() -> void:
-	slider.grab_focus()
+	%HSlider.grab_focus()
 
 
 func focus() -> void:
-	slider.grab_focus()
+	%HSlider.grab_focus()

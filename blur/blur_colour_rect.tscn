@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpovqrlf3updt"]
+
+[ext_resource type="Shader" path="res://addon/godot-helpers/blur/blur.gdshader" id="1_qlhqf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6uetr"]
+shader = ExtResource("1_qlhqf")
+shader_parameter/lod = 0.75
+
+[node name="BlurColourRect" type="ColorRect"]
+material = SubResource("ShaderMaterial_6uetr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

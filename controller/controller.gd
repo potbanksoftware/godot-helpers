@@ -121,29 +121,17 @@ func refresh_cache() -> void:
 	_cache_unpopulated = false
 	var controller := controller_type()
 	if controller != ControllerType.NONE:
-		cached_values["jump"] = get_controller_glyph("jump", controller)
-		cached_values["interact"] = get_controller_glyph("interact", controller)
-		cached_values["switch"] = get_controller_glyph("switch", controller)
-		cached_values["reset"] = get_controller_glyph("reset", controller)
-		cached_values["menu_close"] = get_controller_glyph("menu_close", controller)
-		cached_values["ui_accept"] = get_controller_glyph("ui_accept", controller)
+		for action: String in InputMap.get_actions():
+			cached_values[action] = get_controller_glyph(action, controller)
 		return
 
 	if Controller.is_touchscreen():
-		cached_values["jump"] = ""
-		cached_values["interact"] = ""
-		cached_values["switch"] = ""
-		cached_values["reset"] = ""
-		cached_values["menu_close"] = ""
-		cached_values["ui_accept"] = ""
+		for action: String in InputMap.get_actions():
+			cached_values[action] = ""
 		return
 
-	cached_values["jump"] = get_key_glyph("jump")
-	cached_values["interact"] = get_key_glyph("interact")
-	cached_values["switch"] = get_key_glyph("switch")
-	cached_values["reset"] = get_key_glyph("reset")
-	cached_values["menu_close"] = get_key_glyph("menu_close")
-	cached_values["ui_accept"] = get_key_glyph("ui_accept")
+	for action: String in InputMap.get_actions():
+		cached_values[action] = get_key_glyph(action)
 
 
 ## Returns whether any controllers are currently connected.

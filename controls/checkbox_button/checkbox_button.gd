@@ -4,7 +4,11 @@ extends MenuControl
 
 signal toggled(toggled_on: bool)
 
-@export var text: String = " CheckBox"
+@export var text: String = " CheckBox":
+	set(value):
+		$CheckBox.text = text
+	get:
+		return $CheckBox.text
 
 @export var button_pressed: bool:
 	set(value):

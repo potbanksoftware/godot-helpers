@@ -6,7 +6,7 @@ signal toggled(toggled_on: bool)
 
 @export var text: String = " CheckBox":
 	set(value):
-		$CheckBox.text = text
+		$CheckBox.text = value
 	get:
 		return $CheckBox.text
 
@@ -21,9 +21,6 @@ signal toggled(toggled_on: bool)
 		$CheckBox.theme = value
 	get:
 		return $CheckBox.theme
-
-func _ready() -> void:
-	$CheckBox.text = text
 
 
 func _on_check_box_toggled(toggled_on: bool) -> void:

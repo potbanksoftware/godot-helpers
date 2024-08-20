@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpovqrlf3updt"]
 
-[ext_resource type="Shader" path="res://addon/godot-helpers/blur/blur.gdshader" id="1_qlhqf"]
+[ext_resource type="Shader" path="res://addons/godot-helpers/blur/blur.gdshader" id="1_qlhqf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6uetr"]
 shader = ExtResource("1_qlhqf")

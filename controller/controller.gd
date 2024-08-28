@@ -11,6 +11,7 @@ enum ControllerType { XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, NONE }
 var os_name: String = OS.get_name()
 var cached_values: Dictionary = {}
 var hold_repeat_timer := Timer.new()
+var _last_debug_print_args: Array
 
 var controller_debug_template: String = """\
 %s controllers connected
@@ -116,7 +117,9 @@ func refresh_cache() -> void:
 		Input.get_joy_guid(0),
 	]
 
-	print_debug(controller_debug_template % debug_print_args)
+	if _last_debug_print_args != debug_print_args:
+		_last_debug_print_args = debug_print_args
+		print_debug(controller_debug_template % debug_print_args)
 
 	_cache_unpopulated = false
 	var controller := controller_type()

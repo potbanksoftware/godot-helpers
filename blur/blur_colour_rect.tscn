@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpovqrlf3updt"]
+[gd_scene load_steps=4 format=3 uid="uid://dpovqrlf3updt"]
 
 [ext_resource type="Shader" path="res://addons/godot-helpers/blur/blur.gdshader" id="1_qlhqf"]
+[ext_resource type="Script" path="res://addons/godot-helpers/blur/blur_colour_rect.gd" id="2_qs5av"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6uetr"]
 shader = ExtResource("1_qlhqf")
@@ -13,3 +14,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_qs5av")

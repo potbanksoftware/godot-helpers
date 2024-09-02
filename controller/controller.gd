@@ -128,7 +128,7 @@ func refresh_cache() -> void:
 			cached_values[action] = get_controller_glyph(action, controller)
 		return
 
-	if Controller.is_touchscreen():
+	if is_touchscreen():
 		for action: String in InputMap.get_actions():
 			cached_values[action] = ""
 		return

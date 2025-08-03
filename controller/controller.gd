@@ -102,7 +102,11 @@ func get_key_glyph(action: String) -> String:
 	for event: InputEvent in InputMap.action_get_events(action):
 		if event is InputEventKey:
 			# keycode = OS.find_keycode_from_string(OS.get_keycode_string(event.physical_keycode))
-			keycode = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
+			if event.physical_keycode == 0:
+				keycode = event.keycode
+			else:
+				keycode = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
+
 			if keycode in ControllerMappings.KEY_MAP:
 				return ControllerMappings.KEY_MAP[keycode]
 

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bfwmkeie6tmgl"]
+
+[ext_resource type="FontFile" uid="uid://ca7cbaeen8v8x" path="res://addons/godot-helpers/promptfont/promptfont.ttf" id="1_545gu"]
+
+[resource]
+default_font = ExtResource("1_545gu")
+default_font_size = 30

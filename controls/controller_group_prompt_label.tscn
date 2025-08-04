@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp1ycwevll0oo"]
+
+[ext_resource type="Theme" uid="uid://bfwmkeie6tmgl" path="res://addons/godot-helpers/controls/controller_controls_theme.tres" id="1_0xf8t"]
+[ext_resource type="Script" path="res://addons/godot-helpers/controls/controller_group_prompt_label.gd" id="2_x0oqq"]
+
+[node name="ControllerGroupPromptLabel" type="Label"]
+offset_right = 98.0
+offset_bottom = 37.0
+theme = ExtResource("1_0xf8t")
+text = " X Do "
+script = ExtResource("2_x0oqq")

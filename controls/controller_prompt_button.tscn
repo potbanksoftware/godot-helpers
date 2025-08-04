@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ji1sg06cilyc"]
+
+[ext_resource type="Theme" uid="uid://bfwmkeie6tmgl" path="res://addons/godot-helpers/controls/controller_controls_theme.tres" id="1_4oxm5"]
+[ext_resource type="Script" path="res://addons/godot-helpers/controls/controller_prompt_button.gd" id="1_446m1"]
+
+[sub_resource type="GDScript" id="GDScript_pjt51"]
+script/source = "extends Node
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_released($\"..\".action):
+		ButtonPress.unset_simulate_press_texture($\"..\")
+"
+
+[node name="ControllerPromptButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_4oxm5")
+text = " X Do "
+script = ExtResource("1_446m1")
+
+[node name="Cleanup" type="Node" parent="."]
+process_mode = 3
+script = SubResource("GDScript_pjt51")

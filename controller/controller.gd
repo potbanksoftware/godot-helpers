@@ -139,7 +139,7 @@ static func refresh_cache() -> void:
 		Input.get_joy_guid(0),
 	]
 
-	if _last_debug_print_args != debug_print_args:
+	if not Engine.is_editor_hint() and _last_debug_print_args != debug_print_args:
 		_last_debug_print_args = debug_print_args
 		print_debug(controller_debug_template % debug_print_args)
 

@@ -70,4 +70,4 @@ func _set_text() -> void:
 	text = " %s %s " % [symbols[group], prompt_text]
 	text = text.strip_edges()
 	if prompt_text != "":
-		text += " "
+		text = " %s " % [text]

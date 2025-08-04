@@ -50,4 +50,4 @@ func _set_text() -> void:
 
 	text = text.strip_edges()
 	if prompt_text != "":
-		text += " "
+		text = " %s " % [text]

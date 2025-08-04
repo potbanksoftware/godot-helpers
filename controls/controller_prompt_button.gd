@@ -6,7 +6,7 @@ extends Button
 # Might be good to allow user to force style to fix issue with
 # detecting their controller.
 
-@export var prompt_text: String:
+@export var prompt_text: String = "Do":
 	set(value):
 		prompt_text = value
 		_set_text()

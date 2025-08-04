@@ -4,7 +4,7 @@ extends Label
 
 enum ControllerTypeOverride {XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, AUTO, TOUCHSCREEN, MOUSE_KEYBOARD}
 
-@export var prompt_text: String:
+@export var prompt_text: String = "Do":
 	set(value):
 		prompt_text = value
 		_set_text()

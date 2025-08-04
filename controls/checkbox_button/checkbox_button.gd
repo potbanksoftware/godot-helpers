@@ -1,6 +1,6 @@
 @tool
 class_name CheckBoxButton
-extends MenuControl
+extends PanelControl
 
 signal toggled(toggled_on: bool)
 

@@ -1,6 +1,6 @@
 @tool
 class_name VolumeSlider
-extends MenuControl
+extends PanelControl
 
 signal value_changed
 

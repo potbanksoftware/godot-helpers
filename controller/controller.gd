@@ -90,7 +90,7 @@ static func _get_glyph_for_event(event: InputEvent, controller: ControllerType) 
 
 static func get_controller_glyph(action: String, controller: ControllerType) -> String:
 	var glyph: Variant
-	for event: InputEvent in InputMap.action_get_events(action):
+	for event: InputEvent in _action_get_events(action):
 		glyph = _get_glyph_for_event(event, controller)
 		if glyph != null:
 			return glyph
@@ -100,7 +100,7 @@ static func get_controller_glyph(action: String, controller: ControllerType) -> 
 
 static func get_key_glyph(action: String) -> String:
 	var keycode: int
-	for event: InputEvent in InputMap.action_get_events(action):
+	for event: InputEvent in _action_get_events(action):
 		if event is InputEventKey:
 			# keycode = OS.find_keycode_from_string(OS.get_keycode_string(event.physical_keycode))
 			if event.physical_keycode == 0:
@@ -147,23 +147,36 @@ static func refresh_cache() -> void:
 	var controller: ControllerImpl.ControllerType
 
 	if Engine.is_editor_hint():
-		InputMap.load_from_project_settings()
 		controller = ControllerImpl.ControllerType.NONE
 	else:
 		controller = controller_type()
 
 	if controller != ControllerType.NONE:
-		for action: String in InputMap.get_actions():
+		for action: String in _get_actions():
 			cached_values[action] = get_controller_glyph(action, controller)
 		return
 
 	if is_touchscreen():
-		for action: String in InputMap.get_actions():
+		for action: String in _get_actions():
 			cached_values[action] = ""
 		return
 
-	for action: String in InputMap.get_actions():
+	for action: String in _get_actions():
 		cached_values[action] = get_key_glyph(action)
+
+
+static func _get_actions() -> Array[StringName]:
+	if not Engine.is_editor_hint():
+		return InputMap.get_actions()
+	else:
+		return EngineInputMap.get_actions()
+
+
+static func _action_get_events(action: StringName) -> Array[InputEvent]:
+	if not Engine.is_editor_hint():
+		return InputMap.action_get_events(action)
+	else:
+		return EngineInputMap.action_get_events(action)
 
 
 ## Returns whether any controllers are currently connected.

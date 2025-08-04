@@ -1,30 +1,31 @@
+class_name ControllerImpl
 extends Node
 ## Aids for controller/keyboard
 
-## This module should be autoloaded, typically called Controller.
+## This module should be autoloaded, called Controller.
 
 ## Emitted when a controller is connected or disconnected.
 signal controller_status_changed
 
 enum ControllerType { XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, NONE }
 
-var os_name: String = OS.get_name()
-var cached_values: Dictionary = {}
-var hold_repeat_timer := Timer.new()
-var _last_debug_print_args: Array
+static var os_name: String = OS.get_name()
+static var cached_values: Dictionary = {}
+static var hold_repeat_timer := Timer.new()
+static var _last_debug_print_args: Array
 
-var controller_debug_template: String = """\
+static var controller_debug_template: String = """\
 %s controllers connected
 First controller is %s
 First controller info: %s
 First controller GUID: %s\
 """
 
-var _cache_unpopulated: bool = true
+static var _cache_unpopulated: bool = true
 
-var _repeat_action: String
+static var _repeat_action: String
 # var _ui_pressed_states: Array[String] = ["ui_up", "ui_down", "ui_left", "ui_right"]
-var _ui_pressed_states: Array[String] = ["ui_up", "ui_down"]
+static var _ui_pressed_states: Array[String] = ["ui_up", "ui_down"]
 # TODO: check if focussed device automatically echos and disable for those actions while focussed
 
 
@@ -47,7 +48,7 @@ func _on_input_joy_connection_changed(_device: int, _connected: bool) -> void:
 	controller_status_changed.emit()
 
 
-func _get_glyph_for_event(event: InputEvent, controller: ControllerType) -> Variant:
+static func _get_glyph_for_event(event: InputEvent, controller: ControllerType) -> Variant:
 	var button_map: Dictionary
 	var axis_map: Dictionary
 
@@ -87,7 +88,7 @@ func _get_glyph_for_event(event: InputEvent, controller: ControllerType) -> Vari
 	return null
 
 
-func get_controller_glyph(action: String, controller: ControllerType) -> String:
+static func get_controller_glyph(action: String, controller: ControllerType) -> String:
 	var glyph: Variant
 	for event: InputEvent in InputMap.action_get_events(action):
 		glyph = _get_glyph_for_event(event, controller)
@@ -97,7 +98,7 @@ func get_controller_glyph(action: String, controller: ControllerType) -> String:
 	return ""
 
 
-func get_key_glyph(action: String) -> String:
+static func get_key_glyph(action: String) -> String:
 	var keycode: int
 	for event: InputEvent in InputMap.action_get_events(action):
 		if event is InputEventKey:
@@ -112,11 +113,25 @@ func get_key_glyph(action: String) -> String:
 
 			if keycode in ControllerMappings.KEY_MAP:
 				return ControllerMappings.KEY_MAP[keycode]
+		elif event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				return PromptFont.MOUSE_LEFT
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				return PromptFont.MOUSE_RIGHT
+			if event.button_index == MOUSE_BUTTON_MIDDLE:
+				return PromptFont.MOUSE_MIDDLE
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				return PromptFont.MOUSE_SCROLL_UP
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				return PromptFont.MOUSE_SCROLL_DOWN
+		elif event is InputEventMouseMotion:
+			return PromptFont.MOUSE_ANY
+			# return PromptFont.DEVICE_MOUSE
 
 	return ""
 
 
-func refresh_cache() -> void:
+static func refresh_cache() -> void:
 	var debug_print_args: Array = [
 		Input.get_connected_joypads(),
 		Input.get_joy_name(0),
@@ -129,7 +144,14 @@ func refresh_cache() -> void:
 		print_debug(controller_debug_template % debug_print_args)
 
 	_cache_unpopulated = false
-	var controller := controller_type()
+	var controller: ControllerImpl.ControllerType
+
+	if Engine.is_editor_hint():
+		InputMap.load_from_project_settings()
+		controller = ControllerImpl.ControllerType.NONE
+	else:
+		controller = controller_type()
+
 	if controller != ControllerType.NONE:
 		for action: String in InputMap.get_actions():
 			cached_values[action] = get_controller_glyph(action, controller)
@@ -145,12 +167,12 @@ func refresh_cache() -> void:
 
 
 ## Returns whether any controllers are currently connected.
-func controller_connected() -> bool:
+static func controller_connected() -> bool:
 	return Input.get_connected_joypads().size() > 0
 
 
 ## Returns the currently connected controller type.
-func controller_type() -> ControllerType:
+static func controller_type() -> ControllerType:
 	if not controller_connected():
 		return ControllerType.NONE
 
@@ -180,14 +202,14 @@ func controller_type() -> ControllerType:
 
 
 ## Returns the promptfont glyph for the given action name (matching the InputMap).
-func get_action_button(action: String) -> String:
-	if _cache_unpopulated:
+static func get_action_button(action: String) -> String:
+	if _cache_unpopulated or Engine.is_editor_hint():
 		refresh_cache()
 
 	return cached_values[action]
 
 
-func is_touchscreen() -> bool:
+static func is_touchscreen() -> bool:
 	if os_name == "Android":
 		return true
 	if os_name == "iOS":

@@ -1,3 +1,4 @@
+@tool
 class_name ControllerPromptButton
 extends Button
 
@@ -17,11 +18,15 @@ extends Button
 
 
 func _ready() -> void:
-	Controller.controller_status_changed.connect(_on_controller_changed)
+	if not Engine.is_editor_hint():
+		Controller.controller_status_changed.connect(_on_controller_changed)
 	_on_controller_changed()
 
 
 func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
 	if Input.is_action_just_pressed(action):
 		ButtonPress.set_simulate_press_texture(self)
 		pressed.emit()
@@ -38,10 +43,10 @@ func _set_text() -> void:
 	if action == "":
 		return
 
-	if Controller.is_touchscreen():
+	if ControllerImpl.is_touchscreen():
 		text = " %s " % [prompt_text]
 	else:
-		text = " %s %s " % [Controller.get_action_button(action), prompt_text]
+		text = " %s %s " % [ControllerImpl.get_action_button(action), prompt_text]
 
 	text = text.strip_edges()
 	if prompt_text != "":

@@ -1,3 +1,4 @@
+@tool
 class_name ControllerPromptLabel
 extends Label
 
@@ -13,11 +14,15 @@ enum ControllerTypeOverride {XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, AUTO
 		action = value
 		_set_text()
 
-@export var controller_type: ControllerTypeOverride = ControllerTypeOverride.AUTO
+@export var controller_type: ControllerTypeOverride = ControllerTypeOverride.AUTO:
+	set(value):
+		controller_type = value
+		_set_text()
 
 
 func _ready() -> void:
-	Controller.controller_status_changed.connect(_on_controller_changed)
+	if not Engine.is_editor_hint():
+		Controller.controller_status_changed.connect(_on_controller_changed)
 	_on_controller_changed()
 
 
@@ -29,17 +34,17 @@ func _set_text() -> void:
 	if action == "":
 		return
 
-	if Controller.is_touchscreen() or controller_type == ControllerTypeOverride.TOUCHSCREEN:
+	if ControllerImpl.is_touchscreen() or controller_type == ControllerTypeOverride.TOUCHSCREEN:
 		text = " %s " % [prompt_text]
 	else:
 		var action_button = ""
 
 		if controller_type == ControllerTypeOverride.AUTO:
-			action_button = Controller.get_action_button(action)
+			action_button = ControllerImpl.get_action_button(action)
 		elif controller_type == ControllerTypeOverride.MOUSE_KEYBOARD:
-			action_button = Controller.get_key_glyph(action)
+			action_button = ControllerImpl.get_key_glyph(action)
 		else:
-			action_button = Controller.get_controller_glyph(
+			action_button = ControllerImpl.get_controller_glyph(
 				action, controller_type as Controller.ControllerType
 			)
 

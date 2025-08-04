@@ -190,6 +190,7 @@ func is_touchscreen() -> bool:
 	if os_name == "iOS":
 		return true
 	if ProjectSettings.get("input_devices/pointing/emulate_touch_from_mouse"):
+		# TODO: allow specifying subclass
 		var user_prefs := UserPreferences.load_or_create()
 		if user_prefs.touch_controls_enabled:
 			return true

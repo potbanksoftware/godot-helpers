@@ -107,7 +107,7 @@ static func get_key_glyph(action: String) -> String:
 				keycode = event.keycode
 			elif OS.has_feature("web"):
 				# keyboard_get_keycode_from_physical not supported
-				keycode = event.keycode
+				keycode = event.physical_keycode
 			else:
 				keycode = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
 

@@ -13,7 +13,7 @@ static func _is_input_property(property: Dictionary) -> bool:
 
 static func get_actions() -> Array[StringName]:
 	var actions: Array[StringName]
-	for property in ProjectSettings.get_property_list().filter(_is_input_property):
+	for property: Dictionary in ProjectSettings.get_property_list().filter(_is_input_property):
 		actions.append(property.name.replace("input/", "") as StringName)
 
 	return actions
@@ -21,6 +21,6 @@ static func get_actions() -> Array[StringName]:
 
 static func action_get_events(action: StringName) -> Array[InputEvent]:
 	var events: Array[InputEvent] = []
-	for event in ProjectSettings.get_setting("input/" + action).events:
+	for event: InputEvent in ProjectSettings.get_setting("input/" + action).events:
 		events.append(event as InputEvent)
 	return events

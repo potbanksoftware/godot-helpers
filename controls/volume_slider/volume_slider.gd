@@ -34,7 +34,7 @@ func _ready() -> void:
 	_update_label_and_slider()
 
 
-func _update_label_and_slider():
+func _update_label_and_slider() -> void:
 	$MarginContainer/VBoxContainer/Label.text = "%s Volume" % [bus_name]
 	if not Engine.is_editor_hint():
 		bus_index = AudioServer.get_bus_index(bus_name)

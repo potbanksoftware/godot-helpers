@@ -37,7 +37,7 @@ func _set_text() -> void:
 	if ControllerImpl.is_touchscreen() or controller_type == ControllerTypeOverride.TOUCHSCREEN:
 		text = " %s " % [prompt_text]
 	else:
-		var action_button = ""
+		var action_button: String = ""
 
 		if controller_type == ControllerTypeOverride.AUTO:
 			action_button = ControllerImpl.get_action_button(action)

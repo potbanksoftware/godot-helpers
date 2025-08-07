@@ -15,6 +15,7 @@ func _process(_delta: float) -> void:
 offset_right = 8.0
 offset_bottom = 8.0
 theme = ExtResource("1_4oxm5")
+action_mode = 0
 text = " X Do "
 script = ExtResource("1_446m1")
 

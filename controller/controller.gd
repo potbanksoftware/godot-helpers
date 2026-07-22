@@ -21,6 +21,17 @@ static var input_names: Dictionary = {
 	InputType.TOUCHSCREEN: "Touchscreen",
 	InputType.MOUSE_KEYBOARD: "Mouse + Keyboard",
 }
+static var input_symbols: Dictionary = {
+	InputType.XBOX_360: PromptFont.DEVICE_X360,
+	InputType.XBOX: PromptFont.ICON_XBOX,
+	InputType.PLAYSTATION: PromptFont.ICON_PLAYSTATION,
+	InputType.PS4: PromptFont.DEVICE_DS4,
+	InputType.PS5: PromptFont.DEVICE_DUALSENSE,
+	InputType.SWITCH: PromptFont.ICON_NINTENDO_SWITCH,
+	InputType.AUTO: "   ",
+	InputType.TOUCHSCREEN: "   ",
+	InputType.MOUSE_KEYBOARD: PromptFont.DEVICE_MOUSE_KEYBOARD,
+}
 
 static var os_name: String = OS.get_name()
 static var cached_values: Dictionary = {}

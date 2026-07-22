@@ -5,3 +5,5 @@
 [resource]
 default_font = ExtResource("1_545gu")
 default_font_size = 30
+OptionButton/font_sizes/font_size = 20
+PopupMenu/font_sizes/font_size = 20

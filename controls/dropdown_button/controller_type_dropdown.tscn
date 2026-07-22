@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfwiqtsbgepc7"]
+
+[ext_resource type="PackedScene" uid="uid://cx1jshplcacde" path="res://addons/godot-helpers/controls/dropdown_button/dropdown_button.tscn" id="1_hjom0"]
+[ext_resource type="Script" path="res://addons/godot-helpers/controls/dropdown_button/controller_type_dropdown.gd" id="2_nf4wk"]
+[ext_resource type="Theme" uid="uid://bfwmkeie6tmgl" path="res://addons/godot-helpers/controls/controller_controls_theme.tres" id="3_0qp03"]
+
+[node name="ControllerTypeDropdown" instance=ExtResource("1_hjom0")]
+script = ExtResource("2_nf4wk")
+show_icons = true
+text = "Controller"
+label_theme = ExtResource("3_0qp03")
+dropdown_theme = ExtResource("3_0qp03")
+
+[node name="Label" parent="MarginContainer/HBoxContainer" index="0"]
+text = "Controller"
+
+[node name="OptionButton" parent="MarginContainer/HBoxContainer" index="1"]
+fit_to_longest_item = false
+
+[connection signal="item_selected" from="." to="." method="_on_item_selected"]

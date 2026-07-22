@@ -10,7 +10,7 @@ signal item_selected(index: int)
 	get:
 		return %Label.text
 
-@export var selected: int:
+var selected: int:
 	set(value):
 		%OptionButton.selected = value
 	get:

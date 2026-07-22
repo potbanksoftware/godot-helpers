@@ -7,28 +7,28 @@ extends Node
 ## Emitted when a controller is connected or disconnected.
 signal controller_status_changed
 
-enum ControllerType { XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, NONE }
-enum InputType { XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, AUTO, TOUCHSCREEN, MOUSE_KEYBOARD }
+enum ControllerType { NONE, XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH }
+enum InputType { AUTO, XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, TOUCHSCREEN, MOUSE_KEYBOARD }
 
 static var input_names: Dictionary = {
+	InputType.AUTO: "Auto",
 	InputType.XBOX_360: "Xbox 360",
 	InputType.XBOX: "Xbox",
 	InputType.PLAYSTATION: "PlayStation",
 	InputType.PS4: "PS4",
 	InputType.PS5: "PS5",
 	InputType.SWITCH: "Nintendo Switch",
-	InputType.AUTO: "Auto",
 	InputType.TOUCHSCREEN: "Touchscreen",
 	InputType.MOUSE_KEYBOARD: "Mouse + Keyboard",
 }
 static var input_symbols: Dictionary = {
+	InputType.AUTO: "   ",
 	InputType.XBOX_360: PromptFont.DEVICE_X360,
 	InputType.XBOX: PromptFont.ICON_XBOX,
 	InputType.PLAYSTATION: PromptFont.ICON_PLAYSTATION,
 	InputType.PS4: PromptFont.DEVICE_DS4,
 	InputType.PS5: PromptFont.DEVICE_DUALSENSE,
 	InputType.SWITCH: PromptFont.ICON_NINTENDO_SWITCH,
-	InputType.AUTO: "   ",
 	InputType.TOUCHSCREEN: "   ",
 	InputType.MOUSE_KEYBOARD: PromptFont.DEVICE_MOUSE_KEYBOARD,
 }

@@ -8,13 +8,14 @@
 script = ExtResource("2_nf4wk")
 show_icons = true
 text = "Controller"
-label_theme = ExtResource("3_0qp03")
-dropdown_theme = ExtResource("3_0qp03")
 
 [node name="Label" parent="MarginContainer/HBoxContainer" index="0"]
+theme = ExtResource("3_0qp03")
 text = "Controller"
 
 [node name="OptionButton" parent="MarginContainer/HBoxContainer" index="1"]
+theme = ExtResource("3_0qp03")
+clip_text = true
 fit_to_longest_item = false
 
 [connection signal="item_selected" from="." to="." method="_on_item_selected"]

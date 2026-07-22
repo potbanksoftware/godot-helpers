@@ -8,11 +8,25 @@ extends Node
 signal controller_status_changed
 
 enum ControllerType { XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, NONE }
+enum InputType { XBOX_360, XBOX, PLAYSTATION, PS4, PS5, SWITCH, AUTO, TOUCHSCREEN, MOUSE_KEYBOARD }
+
+static var input_names: Dictionary = {
+	InputType.XBOX_360: "Xbox 360",
+	InputType.XBOX: "Xbox",
+	InputType.PLAYSTATION: "PlayStation",
+	InputType.PS4: "PS4",
+	InputType.PS5: "PS5",
+	InputType.SWITCH: "Nintendo Switch",
+	InputType.AUTO: "Auto",
+	InputType.TOUCHSCREEN: "Touchscreen",
+	InputType.MOUSE_KEYBOARD: "Mouse + Keyboard",
+}
 
 static var os_name: String = OS.get_name()
 static var cached_values: Dictionary = {}
 static var hold_repeat_timer := Timer.new()
 static var _last_debug_print_args: Array
+static var input_type_override: InputType = InputType.AUTO
 
 static var controller_debug_template: String = """\
 %s controllers connected
@@ -131,6 +145,13 @@ static func get_key_glyph(action: String) -> String:
 	return ""
 
 
+## Force a particular input type, e.g. if misdetected or user wants different icons.
+func override_input_type(new_type: InputType) -> void:
+	input_type_override = new_type
+	refresh_cache()
+	controller_status_changed.emit()
+
+
 static func refresh_cache() -> void:
 	var debug_print_args: Array = [
 		Input.get_connected_joypads(),
@@ -144,25 +165,19 @@ static func refresh_cache() -> void:
 		print_debug(controller_debug_template % debug_print_args)
 
 	_cache_unpopulated = false
-	var controller: ControllerImpl.ControllerType
+	var input: ControllerImpl.InputType = input_type()
 
-	if Engine.is_editor_hint():
-		controller = ControllerImpl.ControllerType.NONE
-	else:
-		controller = controller_type()
-
-	if controller != ControllerType.NONE:
-		for action: String in _get_actions():
-			cached_values[action] = get_controller_glyph(action, controller)
-		return
-
-	if is_touchscreen():
+	if input == InputType.TOUCHSCREEN:
 		for action: String in _get_actions():
 			cached_values[action] = ""
-		return
+	elif input == InputType.MOUSE_KEYBOARD:
+		for action: String in _get_actions():
+			cached_values[action] = get_key_glyph(action)
+	else:
+		assert(input != InputType.AUTO)
 
-	for action: String in _get_actions():
-		cached_values[action] = get_key_glyph(action)
+		for action: String in _get_actions():
+			cached_values[action] = get_controller_glyph(action, input as ControllerType)
 
 
 static func _get_actions() -> Array[StringName]:
@@ -212,6 +227,27 @@ static func controller_type() -> ControllerType:
 		return ControllerType.SWITCH
 
 	return ControllerType.XBOX
+
+
+## Returns the current input type (controller variant, touch, M+K etc.).
+static func input_type() -> ControllerImpl.InputType:
+	var controller: ControllerImpl.ControllerType
+
+	if input_type_override != ControllerImpl.InputType.AUTO:
+		return input_type_override
+
+	if Engine.is_editor_hint():
+		controller = ControllerImpl.ControllerType.NONE
+	else:
+		controller = controller_type()
+
+	if controller != ControllerType.NONE:
+		return controller as ControllerImpl.InputType
+
+	if is_touchscreen():
+		return ControllerImpl.InputType.TOUCHSCREEN
+
+	return ControllerImpl.InputType.MOUSE_KEYBOARD
 
 
 ## Returns the promptfont glyph for the given action name (matching the InputMap).

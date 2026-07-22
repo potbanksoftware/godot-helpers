@@ -41,10 +41,10 @@ func _set_text() -> void:
 	var symbols: Array[String] = [PromptFont.ANALOG_L, PromptFont.DPAD, PromptFont.ANALOG_R]
 
 	match controller:
-		#ControllerImpl.ControllerType.XBOX_360:
-		#	symbols = [PromptFont.ANALOG_L, PromptFont.DPAD, PromptFont.ANALOG_R]
-		#ControllerImpl.ControllerType.XBOX:
-		#	symbols = [PromptFont.ANALOG_L, PromptFont.DPAD, PromptFont.ANALOG_R]
+		ControllerImpl.ControllerType.XBOX_360:
+			symbols = [PromptFont.ANALOG_L, PromptFont.XBOX_DPAD, PromptFont.ANALOG_R]
+		ControllerImpl.ControllerType.XBOX:
+			symbols = [PromptFont.ANALOG_L, PromptFont.XBOX_DPAD, PromptFont.ANALOG_R]
 		#ControllerImpl.ControllerType.PLAYSTATION:
 		#	symbols = [PromptFont.ANALOG_L, PromptFont.DPAD, PromptFont.ANALOG_R]
 		#ControllerImpl.ControllerType.PS4:

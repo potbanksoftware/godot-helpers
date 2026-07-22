@@ -69,8 +69,8 @@ static func _get_glyph_for_event(event: InputEvent, controller: ControllerType) 
 	match controller:
 		ControllerType.XBOX_360:
 			button_map = ControllerMappings.XBOX_BUTTON_MAP.duplicate()
-			button_map[JOY_BUTTON_BACK] = PromptFont.GAMEPAD_SELECT  # TODO: proper back button
-			button_map[JOY_BUTTON_START] = PromptFont.GAMEPAD_START  # TODO: proper 360 start button
+			button_map[JOY_BUTTON_BACK] = PromptFont.NINTENDO_DPAD_LEFT  # TODO: proper back button
+			button_map[JOY_BUTTON_START] = PromptFont.NINTENDO_DPAD_RIGHT  # TODO: proper 360 start button
 			axis_map = ControllerMappings.XBOX_AXIS_MAP
 		ControllerType.XBOX:
 			button_map = ControllerMappings.XBOX_BUTTON_MAP
@@ -208,7 +208,9 @@ static func controller_type() -> ControllerType:
 
 	print(Input.get_joy_name(0))
 
-	if "xbox" in controller_name:
+	if "xbox" in controller_name and "360" in controller_name:
+		return ControllerType.XBOX_360
+	elif "xbox" in controller_name:
 		return ControllerType.XBOX
 	elif "switch" in controller_name:
 		return ControllerType.SWITCH

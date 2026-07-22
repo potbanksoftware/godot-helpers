@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx1jshplcacde"]
+
+[ext_resource type="Script" path="res://addons/godot-helpers/controls/dropdown_button/dropdown_button.gd" id="1_oqfrv"]
+
+[node name="DropdownButton" type="Panel"]
+custom_minimum_size = Vector2(400, 50)
+script = ExtResource("1_oqfrv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Dropdown"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

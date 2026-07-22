@@ -7,6 +7,7 @@ extends Resource
 @export var debug_menu_style: int = 0
 @export var vsync_enabled: bool = true
 @export var touch_controls_enabled: bool = false
+@export var input_type: int = ControllerImpl.InputType.AUTO
 
 
 func save() -> void:

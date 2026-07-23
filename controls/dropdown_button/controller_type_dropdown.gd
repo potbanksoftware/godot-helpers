@@ -4,7 +4,6 @@ extends DropdownButton
 
 
 func _ready() -> void:
-	print(ControllerImpl.InputType)
 	for controller_type: ControllerImpl.InputType in ControllerImpl.input_names:
 		var label: String = ""
 

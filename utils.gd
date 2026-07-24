@@ -14,3 +14,13 @@ func print_debug_enum(value: int, enum_type: Dictionary) -> void:
 
 		print(enum_type.find_key(value))
 		print("   At: ", stack_frame["source"], ":", stack_frame["line"], ":", stack_frame["function"], "()")
+
+
+## Returns the sum of two numbers. Useful for Array.reduce
+static func sum(accum: float, number: float) -> float:
+	return accum + number
+
+
+## Returns the sum of two integers. Useful for Array.reduce
+static func sumi(accum: int, number: int) -> int:
+	return accum + number

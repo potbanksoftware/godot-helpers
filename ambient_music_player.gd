@@ -1,6 +1,12 @@
 extends AudioStreamPlayer
 ## Automatically play looping ambient music from random position.
 
+@export_range(0, 2) var volume_linear: float = 1.0:
+	set(value):
+		volume_db = linear_to_db(value)
+	get:
+		return db_to_linear(volume_db)
+
 var rng := RandomNumberGenerator.new()
 
 
@@ -24,3 +30,14 @@ func change_track(new_stream: AudioStream, random_start: bool = true, force: boo
 			play(0)
 
 		print_debug("Changed ambient music to ", new_stream)
+
+
+func fade_out(duration: float) -> void:
+	var tween := create_tween()
+	tween.tween_property(self, "volume_linear", 0, duration)
+	tween.tween_callback(self._fade_callback)
+
+
+func _fade_callback() -> void:
+	stop()
+	volume_linear = 1

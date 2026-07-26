@@ -31,6 +31,9 @@ func change_track(new_stream: AudioStream, random_start: bool = true, force: boo
 
 		print_debug("Changed ambient music to ", new_stream)
 
+	elif stream and not playing:
+		play(0)
+
 
 func fade_out(duration: float) -> void:
 	var tween := create_tween()

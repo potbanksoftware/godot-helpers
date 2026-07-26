@@ -29,7 +29,9 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed(action):
 		ButtonPress.set_simulate_press_texture(self)
-		pressed.emit()
+
+		if is_visible_in_tree():
+			pressed.emit()
 
 	if Input.is_action_just_released(action):
 		ButtonPress.unset_simulate_press_texture(self)

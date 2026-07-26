@@ -28,7 +28,6 @@ var selected: int:
 		return %OptionButton.selected
 
 
-
 func _on_option_button_item_selected(index: int) -> void:
 	item_selected.emit(index)
 

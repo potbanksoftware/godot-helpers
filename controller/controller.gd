@@ -40,7 +40,7 @@ static var _last_debug_print_args: Array
 static var input_type_override: InputType = InputType.AUTO
 
 static var controller_debug_template: String = """\
-%s controllers connected
+Controllers connected: %s
 First controller is %s
 First controller info: %s
 First controller GUID: %s\
@@ -171,9 +171,12 @@ static func refresh_cache() -> void:
 		Input.get_joy_guid(0),
 	]
 
-	if not Engine.is_editor_hint() and _last_debug_print_args != debug_print_args:
-		_last_debug_print_args = debug_print_args
-		print_debug(controller_debug_template % debug_print_args)
+	if not Engine.is_editor_hint():
+		if _last_debug_print_args != debug_print_args:
+			_last_debug_print_args = debug_print_args
+			print_debug(controller_debug_template % debug_print_args)
+		else:
+			print(Input.get_joy_name(0))
 
 	_cache_unpopulated = false
 	var input: ControllerImpl.InputType = input_type()
@@ -216,8 +219,6 @@ static func controller_type() -> ControllerType:
 		return ControllerType.NONE
 
 	var controller_name: String = Input.get_joy_name(0).to_lower()
-
-	print(Input.get_joy_name(0))
 
 	if "xbox" in controller_name and "360" in controller_name:
 		return ControllerType.XBOX_360

@@ -10,7 +10,6 @@ show_icons = true
 text = "Controller"
 
 [node name="Label" parent="MarginContainer/HBoxContainer" index="0"]
-theme = ExtResource("3_0qp03")
 text = "Controller"
 
 [node name="OptionButton" parent="MarginContainer/HBoxContainer" index="1"]

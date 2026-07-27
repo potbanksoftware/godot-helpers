@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmy7mxwnqg6xw"]
+
+[ext_resource type="Script" path="res://addons/godot-helpers/controls/slideshow/slideshow.gd" id="1_1jrpr"]
+[ext_resource type="Texture2D" uid="uid://cqws0s858qsnl" path="res://addons/godot-helpers/controls/slideshow/placeholders/3.png" id="2_llis5"]
+[ext_resource type="Texture2D" uid="uid://brgyt3rnxxlt6" path="res://addons/godot-helpers/controls/slideshow/placeholders/1.png" id="3_20w8a"]
+[ext_resource type="Texture2D" uid="uid://jadwqpfet2rd" path="res://addons/godot-helpers/controls/slideshow/placeholders/2.png" id="4_mwlih"]
+
+[sub_resource type="Animation" id="Animation_krwh3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mgf06"]
+resource_name = "next_image"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(500, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"load_next_image"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1s48p"]
+resource_name = "prev_image"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-500, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"load_prev_image"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l3her"]
+_data = {
+"RESET": SubResource("Animation_krwh3"),
+"next_image": SubResource("Animation_mgf06"),
+"prev_image": SubResource("Animation_1s48p")
+}
+
+[node name="Slideshow" type="Node2D"]
+script = ExtResource("1_1jrpr")
+
+[node name="Image0" type="Sprite2D" parent="."]
+position = Vector2(-500, 0)
+texture = ExtResource("2_llis5")
+
+[node name="Image1" type="Sprite2D" parent="."]
+texture = ExtResource("3_20w8a")
+
+[node name="Image2" type="Sprite2D" parent="."]
+position = Vector2(500, 0)
+texture = ExtResource("4_mwlih")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l3her")
+}

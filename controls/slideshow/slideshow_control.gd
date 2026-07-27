@@ -1,6 +1,8 @@
 class_name SlideshowControl
 extends Control
 
+# TODO: allow changing image size (have to change in subviewport node and the subviewport size)
+
 @export var image_scale: Vector2:
 	set(value):
 		image_scale = value

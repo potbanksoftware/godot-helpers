@@ -1,6 +1,8 @@
 class_name Slideshow
 extends Node2D
 
+# TODO: allow changing image size (affects end position in AnimationPlayer and Sprite2D sizes)
+
 @export var image_scale: Vector2
 @export var images: Array[Texture2D]
 var image_idx: int = -1

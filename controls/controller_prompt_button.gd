@@ -16,6 +16,11 @@ extends Button
 		action = value
 		_set_text()
 
+@export var flip: bool = false:
+	set(value):
+		flip = value
+		_set_text()
+
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -47,6 +52,8 @@ func _set_text() -> void:
 
 	if ControllerImpl.is_touchscreen():
 		text = " %s " % [prompt_text]
+	elif flip:
+		text = " %s %s " % [prompt_text, ControllerImpl.get_action_button(action)]
 	else:
 		text = " %s %s " % [ControllerImpl.get_action_button(action), prompt_text]
 
